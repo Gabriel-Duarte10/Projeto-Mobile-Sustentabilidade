@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Projeto-Mobile-Sustentabilidade.props" />
+</Project>

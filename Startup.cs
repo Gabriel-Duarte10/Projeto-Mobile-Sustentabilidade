@@ -6,6 +6,9 @@ using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Projeto_Mobile_Sustentabilidade.Data.Context;
+using Projeto_Mobile_Sustentabilidade.Data.Interface;
+using Projeto_Mobile_Sustentabilidade.Data.Repositorio;
+using Projeto_Mobile_Sustentabilidade.Services;
 
 namespace Projeto_Mobile_Sustentabilidade
 {
@@ -19,6 +22,7 @@ namespace Projeto_Mobile_Sustentabilidade
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddHttpContextAccessor();
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Base")));
@@ -51,6 +55,17 @@ namespace Projeto_Mobile_Sustentabilidade
 
             #endregion
 
+            #region Interfaces e serviços
+
+
+            services.AddScoped<IUsuario, UsuarioRep>();
+
+
+            
+            services.AddScoped<EnvioEmail>();
+            
+            #endregion
+
             #region Swagger
 
             services.AddSwaggerGen(c =>
@@ -60,7 +75,7 @@ namespace Projeto_Mobile_Sustentabilidade
             });
 
             #endregion
-
+            
 
         }
          // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

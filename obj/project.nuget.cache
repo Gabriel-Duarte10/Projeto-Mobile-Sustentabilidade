@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pJGqvQ4UzQkECnDb5+BO3BNPWvJxJxCjZV5EqLeheGrZnowmSLco6TVYUbyEH+RKM0eswauVW3tb3QP1ZNytow==",
+  "dgSpecHash": "kt21tdSLEzuwVuZghudcmGrBvOHNyv1Ar/pBCUEwU5Tn9XWC0u88Jh6JFgMMXOdOxvlqEzt8Dis2m5y92XLssw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Teste\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\Teste\\.nuget\\packages\\bcrypt.net-core\\1.6.0\\bcrypt.net-core.1.6.0.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\hangfire\\1.7.33\\hangfire.1.7.33.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\hangfire.aspnetcore\\1.7.33\\hangfire.aspnetcore.1.7.33.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\hangfire.core\\1.7.33\\hangfire.core.1.7.33.nupkg.sha512",

@@ -24,6 +24,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
         public string UF { get; set; }
         public string Cidade { get; set; }
         public StatusEnum StatusEnum { get; set; }
+        public int? PostoId { get; set; }
     }
     public class UsuarioContaRequest
     {

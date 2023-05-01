@@ -8,6 +8,7 @@ using Projeto_Mobile_Sustentabilidade.Data.Context;
 using Projeto_Mobile_Sustentabilidade.Data.Dto;
 using Projeto_Mobile_Sustentabilidade.Data.Interface;
 using Projeto_Mobile_Sustentabilidade.Data.Models;
+using Projeto_Mobile_Sustentabilidade.Data.Models.Enuns;
 using Projeto_Mobile_Sustentabilidade.Data.Request;
 
 namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
@@ -40,8 +41,39 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 usuario.Login = conta.Login;
                 usuario.Senha = BCrypt.Net.BCrypt.HashPassword(conta.Senha);
 
-                await _context.Usuarios.AddAsync(usuario);
+                var userBd = await _context.Usuarios.AddAsync(usuario);
 
+                await _context.SaveChangesAsync();
+
+                switch (usuario.PerfilEnum)
+                {
+                    case PerfilEnum.Administrador:
+                        var administrador = new Administrador(){
+                            IdUsuario = userBd.Entity.Id
+                        };
+                        await _context.Administradores.AddAsync(administrador);
+                        break;
+                    case PerfilEnum.Cliente:
+                        var cliente = new Cliente(){
+                            IdUsuario = userBd.Entity.Id,
+                            Saldo = 0
+                        };
+                        await _context.Clientes.AddAsync(cliente);
+                        break;
+                    case PerfilEnum.DonoPosto:
+                        var DonoPosto = new DonoPosto(){
+                            IdUsuario = userBd.Entity.Id
+                        };
+                        await _context.DonosPosto.AddAsync(DonoPosto);
+                        break;
+                    case PerfilEnum.FuncionarioPosto:
+                        var funcionario = new FuncionarioPosto(){
+                            IdUsuario = userBd.Entity.Id,
+                            IdPosto = model.PostoId.GetValueOrDefault()
+                        };
+                        await _context.FuncionariosPosto.AddAsync(funcionario);
+                        break;
+                }
                 await _context.SaveChangesAsync();
 
                 await T.CommitAsync(); 

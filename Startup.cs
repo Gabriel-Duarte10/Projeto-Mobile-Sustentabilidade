@@ -60,6 +60,7 @@ namespace Projeto_Mobile_Sustentabilidade
 
             services.AddScoped<IUsuario, UsuarioRep>();
             services.AddScoped<ILiquido, LiquidoRep>();
+            services.AddScoped<IUsina, UsinaRep>();
 
 
             

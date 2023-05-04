@@ -9,21 +9,21 @@ using Projeto_Mobile_Sustentabilidade.Data.Request;
 namespace Projeto_Mobile_Sustentabilidade.Controllers
 {
     [ApiController]
-    [Route("api/usuario")]
-    public class UsuarioController: ControllerBase
+    [Route("api/posto")]
+    public class PostoController : ControllerBase
     {
-        private readonly IUsuario _rep;
-        public UsuarioController(IUsuario rep)
+         private readonly IPosto _rep;
+        public PostoController(IPosto rep)
         {
             _rep = rep;
         }
         [HttpPost]
-        public async Task<IActionResult> Post(UsuarioRequest model)
+        public async Task<IActionResult> Post(PostoRequest model)
         {
             try
             {
-                var result = await _rep.Post(model.Dados, model.Conta);
-                return Ok(result);
+                await _rep.Post(model);
+                return Ok();
             }
             catch (System.Exception error)
             {
@@ -57,7 +57,7 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> Put(UsuarioDadosRequest model)
+        public async Task<IActionResult> Put(PostoRequest model)
         {
             try
             {

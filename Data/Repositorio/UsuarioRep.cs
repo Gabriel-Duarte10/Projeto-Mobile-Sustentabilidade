@@ -22,7 +22,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
             _mapper = mapper;
             _context = context;
         }
-        public async Task Post(UsuarioDadosRequest model, UsuarioContaRequest conta)
+        public async Task<UsuarioPerfil> Post(UsuarioDadosRequest model, UsuarioContaRequest conta)
         {
             try
             {
@@ -44,6 +44,11 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 var userBd = await _context.Usuarios.AddAsync(usuario);
 
                 await _context.SaveChangesAsync();
+                
+                var perfilUsuario = new UsuarioPerfil();
+
+                perfilUsuario.UsuarioId = userBd.Entity.Id;
+                perfilUsuario.PerfilEnum = usuario.PerfilEnum;
 
                 switch (usuario.PerfilEnum)
                 {
@@ -51,32 +56,40 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                         var administrador = new Administrador(){
                             IdUsuario = userBd.Entity.Id
                         };
-                        await _context.Administradores.AddAsync(administrador);
+                        var admin = await _context.Administradores.AddAsync(administrador);
+                        await _context.SaveChangesAsync();
+                        perfilUsuario.PerfilUsuarioId = admin.Entity.Id;
                         break;
                     case PerfilEnum.Cliente:
                         var cliente = new Cliente(){
                             IdUsuario = userBd.Entity.Id,
                             Saldo = 0
                         };
-                        await _context.Clientes.AddAsync(cliente);
+                        var clienteBD = await _context.Clientes.AddAsync(cliente);
+                        await _context.SaveChangesAsync();
+                        perfilUsuario.PerfilUsuarioId = clienteBD.Entity.Id;
                         break;
                     case PerfilEnum.DonoPosto:
                         var DonoPosto = new DonoPosto(){
                             IdUsuario = userBd.Entity.Id
                         };
-                        await _context.DonosPosto.AddAsync(DonoPosto);
+                        var dono = await _context.DonosPosto.AddAsync(DonoPosto);
+                        await _context.SaveChangesAsync();
+                        perfilUsuario.PerfilUsuarioId = dono.Entity.Id;
                         break;
                     case PerfilEnum.FuncionarioPosto:
                         var funcionario = new FuncionarioPosto(){
                             IdUsuario = userBd.Entity.Id,
                             IdPosto = model.PostoId.GetValueOrDefault()
                         };
-                        await _context.FuncionariosPosto.AddAsync(funcionario);
+                        var func = await _context.FuncionariosPosto.AddAsync(funcionario);
+                        await _context.SaveChangesAsync();
+                        perfilUsuario.PerfilUsuarioId = func.Entity.Id;
                         break;
                 }
-                await _context.SaveChangesAsync();
 
                 await T.CommitAsync(); 
+                return perfilUsuario;
             }
             catch (System.Exception error)
             {

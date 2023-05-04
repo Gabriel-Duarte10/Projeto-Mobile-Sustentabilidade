@@ -20,4 +20,10 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Dto
         public string Cidade { get; set; }
         public StatusEnum StatusEnum { get; set; }
     }
+    public class UsuarioPerfil
+    {
+        public int UsuarioId { get; set; }
+        public int PerfilUsuarioId { get; set; }
+        public PerfilEnum PerfilEnum { get; set; }
+    }
 }

@@ -7,11 +7,11 @@ using Projeto_Mobile_Sustentabilidade.Data.Request;
 
 namespace Projeto_Mobile_Sustentabilidade.Data.Interface
 {
-    public interface IUsuario
+    public interface IPosto
     {
-        Task<UsuarioPerfil> Post(UsuarioDadosRequest model, UsuarioContaRequest conta);
-        Task<List<UsuarioDto>> GetAll();
-        Task<UsuarioDto> GetById(int id);
-        Task Put(UsuarioDadosRequest model);
+        Task Post(PostoRequest model);
+        Task<List<PostoDto>> GetAll();
+        Task<PostoDto> GetById(int id);
+        Task Put(PostoRequest model);
     }
 }

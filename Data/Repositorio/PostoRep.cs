@@ -91,7 +91,10 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
         {
             try
             {
-                var Postos = await _context.Postos.ToListAsync();
+                var Postos = await _context.Postos
+                    .Include(x => x.DonoPosto)
+                        .ThenInclude(a => a.Usuario)
+                    .ToListAsync();
 
                 var PostosDto = _mapper.Map<List<PostoDto>>(Postos);
 
@@ -107,7 +110,10 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
         {
             try
             {
-                var Posto = await _context.Postos.FindAsync(id);
+                var Posto = await _context.Postos
+                .Include(x => x.DonoPosto)
+                        .ThenInclude(a => a.Usuario)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
                 var PostoDto = _mapper.Map<PostoDto>(Posto);
 
@@ -117,6 +123,31 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
 
             }
             catch (System.Exception error)
+            {
+                
+                throw;
+            }
+        }
+        public async Task PostoStatus(PostoStatusRequest model)
+        {
+            try
+            {
+                var T = await _context.Database.BeginTransactionAsync();
+
+                var PostoBd = await _context.Postos
+                    .Include(x => x.DonoPosto)
+                        .ThenInclude(a => a.Usuario)
+                    .FirstOrDefaultAsync(x => x.Id == model.PostoId);
+
+                PostoBd.DonoPosto.Usuario.StatusEnum = model.Status;
+
+                _context.Entry(PostoBd).CurrentValues.SetValues(PostoBd);
+
+                await _context.SaveChangesAsync();
+
+                await T.CommitAsync(); 
+            }
+            catch (System.Exception)
             {
                 
                 throw;

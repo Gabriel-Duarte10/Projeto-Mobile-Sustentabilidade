@@ -14,6 +14,13 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Dto
         public string UF { get; set; }
         public string Cidade { get; set; }
         public List<PostoAceitaLiquidoDto> LiquidosAceitos { get; set; }
+        public DonoPostoDto DonoPosto { get; set; }
+    }
+    public class DonoPostoDto
+    {
+        public int Id { get; set; }
+        public UsuarioDto Usuario { get; set; }
+
     }
     public class PostoAceitaLiquidoDto
     {

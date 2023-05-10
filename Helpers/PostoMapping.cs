@@ -19,7 +19,10 @@ namespace Projeto_Mobile_Sustentabilidade.Helpers
         public void MapPosto()
         {
             //Posto -> PostoDto
-            CreateMap<Posto, PostoDto>();
+            CreateMap<Posto, PostoDto>().ReverseMap();
+
+            //DonoPosto -> DonoPostoDto
+            CreateMap<DonoPosto, DonoPostoDto>();
 
             //PostoRequest -> Posto
             CreateMap<PostoRequest, Posto>();

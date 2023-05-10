@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Projeto_Mobile_Sustentabilidade.Data.Models.Enuns;
 
 namespace Projeto_Mobile_Sustentabilidade.Data.Request
 {
@@ -20,5 +21,10 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
     {
         public int IdLiquido { get; set; }
         public int CapacidadeTotal { get; set; }
+    }
+    public class PostoStatusRequest
+    {
+        public int PostoId { get; set; }
+        public StatusEnum Status { get; set; }
     }
 }

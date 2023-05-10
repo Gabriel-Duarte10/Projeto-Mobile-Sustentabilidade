@@ -13,5 +13,6 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Interface
         Task<List<PostoDto>> GetAll();
         Task<PostoDto> GetById(int id);
         Task Put(PostoRequest model);
+        Task PostoStatus(PostoStatusRequest model);
     }
 }

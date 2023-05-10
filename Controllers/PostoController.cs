@@ -69,5 +69,18 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpPut("posto-status")]
+        public async Task<IActionResult> PostoStatus(PostoStatusRequest model)
+        {
+            try
+            {
+                await _rep.PostoStatus(model);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

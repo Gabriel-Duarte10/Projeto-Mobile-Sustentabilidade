@@ -58,12 +58,6 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
                 .HasForeignKey(x => x.IdPosto)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<FuncionarioPosto>()
-                .HasOne<DonoPosto>(x => x.DonoPosto)
-                .WithMany()
-                .HasForeignKey(x => x.IdDonoPosto)
-                .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<Liquido>()
                 .HasOne<Administrador>(x => x.Administrador)
                 .WithMany()

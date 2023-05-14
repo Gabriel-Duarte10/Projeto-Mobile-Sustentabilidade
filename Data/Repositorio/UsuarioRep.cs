@@ -123,11 +123,19 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 throw;
             }
         }
-        public async Task<List<UsuarioDto>> GetAll()
+        public async Task<List<UsuarioDto>> GetAll(PerfilEnum? perfil = null)
         {
             try
             {
-                var usuarios = await _context.Usuarios.ToListAsync();
+                var usuarios = new List<Usuario>();
+                if (perfil != null)
+                {
+                    usuarios = await _context.Usuarios.Where(x => x.PerfilEnum == perfil).ToListAsync();
+                }
+                else
+                {
+                    usuarios = await _context.Usuarios.ToListAsync();
+                }
 
                 var usuariosDto = _mapper.Map<List<UsuarioDto>>(usuarios);
 

@@ -4,27 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Projeto_Mobile_Sustentabilidade.Data.Interface;
-using Projeto_Mobile_Sustentabilidade.Data.Models.Enuns;
 using Projeto_Mobile_Sustentabilidade.Data.Request;
 
 namespace Projeto_Mobile_Sustentabilidade.Controllers
 {
     [ApiController]
-    [Route("api/usuario")]
-    public class UsuarioController: ControllerBase
+    [Route("api/funcionario-posto")]
+    public class FuncionarioPostoController : ControllerBase
     {
-        private readonly IUsuario _rep;
-        public UsuarioController(IUsuario rep)
+       private readonly IFuncionarioPosto _rep;
+        public FuncionarioPostoController(IFuncionarioPosto rep)
         {
             _rep = rep;
         }
-        [HttpPost]
-        public async Task<IActionResult> Post(UsuarioRequest model)
+        [HttpPut("alterar-status")]
+        public async Task<IActionResult> Post(FuncionarioPostoStatusRequest model)
         {
             try
             {
-                var result = await _rep.Post(model.Dados, model.Conta);
-                return Ok(result);
+                await _rep.FuncionarioPostoStatus(model);
+                return Ok();
             }
             catch (System.Exception error)
             {
@@ -32,11 +31,11 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll(PerfilEnum? perfil)
+        public async Task<IActionResult> GetAll()
         {
             try
             {
-                var result = await _rep.GetAll(perfil);
+                var result = await _rep.GetAll();
                 return Ok(result);
             }
             catch (System.Exception error)
@@ -51,19 +50,6 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
             {
                 var result = await _rep.GetById(id);
                 return Ok(result);
-            }
-            catch (System.Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
-        [HttpPut]
-        public async Task<IActionResult> Put(UsuarioDadosRequest model)
-        {
-            try
-            {
-                await _rep.Put(model);
-                return Ok();
             }
             catch (System.Exception error)
             {

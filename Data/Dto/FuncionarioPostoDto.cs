@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Projeto_Mobile_Sustentabilidade.Data.Dto
 {
-    public class ClienteDto
+    public class FuncionarioPostoDto
     {
         public int Id { get; set; }
-        public double Saldo { get; set; }
         public UsuarioDto Usuario { get; set; }
+        public PostoDto Posto { get; set; }
     }
 }

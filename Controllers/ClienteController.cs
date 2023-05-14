@@ -18,7 +18,7 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
         {
             _rep = rep;
         }
-        [HttpPut]
+        [HttpPut("alterar-status")]
         public async Task<IActionResult> Post(ClienteStatusRequest model)
         {
             try

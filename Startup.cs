@@ -64,6 +64,7 @@ namespace Projeto_Mobile_Sustentabilidade
             services.AddScoped<IPosto, PostoRep>();
             services.AddScoped<ICliente, ClienteRep>();
             services.AddScoped<IFuncionarioPosto, FuncionarioPostoRep>();
+            services.AddScoped<IManterConta, ManterContaRep>();
 
 
             

@@ -65,10 +65,13 @@ namespace Projeto_Mobile_Sustentabilidade
             services.AddScoped<ICliente, ClienteRep>();
             services.AddScoped<IFuncionarioPosto, FuncionarioPostoRep>();
             services.AddScoped<IManterConta, ManterContaRep>();
+            services.AddScoped<IViewRenderService, ViewRenderService>();
 
 
             
-            services.AddScoped<EnvioEmail>();
+            services.AddScoped<SendEmailService>();
+            services.AddScoped<SendGridService>();
+            services.AddScoped<ViewRenderService>();
             
             #endregion
 

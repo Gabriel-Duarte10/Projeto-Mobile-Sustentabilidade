@@ -15,3 +15,11 @@ build_property.SupportLocalizedComponentNames =
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
 build_property.MSBuildProjectDirectory = C:\Users\Teste\Desktop\Faculdade\7 Periodo\Projeto Mobile\Projeto-Mobile-Sustentabilidade
 build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/Teste/Desktop/Faculdade/7 Periodo/Projeto Mobile/Projeto-Mobile-Sustentabilidade/Views/Email/RedefinirSenha.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1haWxcUmVkZWZpbmlyU2VuaGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Teste/Desktop/Faculdade/7 Periodo/Projeto Mobile/Projeto-Mobile-Sustentabilidade/Views/Shared/_EmailBase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9FbWFpbEJhc2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

@@ -1,0 +1,26 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@model string;
+@{
+    Layout = "_EmailBase";   
+    var url = Configuration.GetValue<string>("Url");
+    var link = $"{url}/usuario/gerar-senha/{Model}";
+}
+
+@section Header {
+    <p>
+        <div>Redefinir Sua Senha de Acesso aos Sistemas Taesa</div>
+    </p>
+}
+
+<p>
+    <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Nullam dapibus tortor sapien, in vestibulum justo
+        scelerisque sed. Donec malesuada finibus nibh.
+    </div>
+</p>
+@section Action {
+    <a href="@link" style="display: inline-block; background: #042769; font-weight: bold; color:#FFF; border-radius: 4px; padding: 12px 80px; text-decoration: none; text-transform: uppercase;">
+        CONFIGURAR SENHA
+    </a>
+}

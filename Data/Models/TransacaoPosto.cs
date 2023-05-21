@@ -7,7 +7,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Models
     {
         public DateTime DataAgendada { get; set; }
         public DateTime? DataConfirmada { get; set; }
-        public double? Valor { get; set; }
+        public double Valor { get; set; }
         public StatusEnum Status { get; set; }
         public String CodigoTransacao { get; set; }
 

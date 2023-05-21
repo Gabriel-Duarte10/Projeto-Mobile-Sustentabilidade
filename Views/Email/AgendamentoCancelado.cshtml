@@ -1,0 +1,17 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+@model string;
+@{
+    Layout = "_EmailBase"; 
+}
+
+@section Header {
+    <p>
+        <div>Agendamento Cancelado</div>
+    </p>
+}
+
+<p>
+    <div>O agendamento foi cancelado pelo posto de coleta.
+    </div>
+</p>

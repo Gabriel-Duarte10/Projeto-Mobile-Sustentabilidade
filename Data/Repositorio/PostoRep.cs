@@ -98,6 +98,12 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
 
                 var PostosDto = _mapper.Map<List<PostoDto>>(Postos);
 
+                foreach (var i in PostosDto)
+                {
+                    var PostoAceitaLiquido = await _context.PostosAceitamLiquido.Include(x => x.Liquido).Where(x => x.IdPosto == i.Id).ToListAsync();
+                    i.LiquidosAceitos = _mapper.Map<List<PostoAceitaLiquidoDto>>(PostoAceitaLiquido);
+                }
+
                 return PostosDto;
             }
             catch (System.Exception error)

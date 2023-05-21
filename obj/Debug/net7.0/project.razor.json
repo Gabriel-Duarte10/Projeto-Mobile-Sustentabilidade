@@ -18710,6 +18710,11 @@
       "FilePath": "c:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Views\\Shared\\_EmailBase.cshtml",
       "TargetPath": "Views\\Shared\\_EmailBase.cshtml",
       "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Views\\Email\\AgendamentoCancelado.cshtml",
+      "TargetPath": "Views\\Email\\AgendamentoCancelado.cshtml",
+      "FileKind": "mvc"
     }
   ],
   "SerializationFormat": "0.3"

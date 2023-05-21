@@ -38,6 +38,14 @@ namespace Projeto_Mobile_Sustentabilidade.Services
                 await SendGridService.Send(email, $"Envio de Email - Redefinir de senha", $"Email/RedefinirSenha", token);
             }
         }
+        public async Task EnvioEmailCancelamentoAgendamento(String email)
+        {
+            var usuario = _context.Usuarios.Where(x => x.Email.ToLower() == email.ToLower()).First();
+            if(usuario != null)
+            {
+                await SendGridService.Send(email, $"Envio de Email - Agendamento Cancelado", $"Email/AgendamentoCancelado", null);
+            }
+        }
         public string GenerateToken(string userId)
         {
             var jwtConfig = Configuration.GetSection("JWT");

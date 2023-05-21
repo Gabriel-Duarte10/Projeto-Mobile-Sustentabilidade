@@ -56,5 +56,57 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpPut("agendamento")]
+        public async Task<IActionResult> AgendamentoPut(TransacaoFuncionarioPostoRequest model)
+        {
+            try
+            {
+                await _rep.TransacaoFuncionarioPostoPut(model);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+        [HttpDelete("agendamento/{id}")]
+        public async Task<IActionResult> AgendamentoDelete(int id)
+        {
+            try
+            {
+                await _rep.TransacaoFuncionarioPostoDelete(id);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+        [HttpGet("agendamento/{id}")]
+        public async Task<IActionResult> AgendamentoGetById(int id)
+        {
+            try
+            {
+                var transacaoDto = await _rep.TransacaoFuncionarioPostoGetById(id);
+                return Ok(transacaoDto);
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+        [HttpGet("agendamento")]
+        public async Task<IActionResult> AgendamentoGetAll(int idPosto)
+        {
+            try
+            {
+                var transacaoDto = await _rep.TransacaoFuncionarioPostoGetAll(idPosto);
+                return Ok(transacaoDto);
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

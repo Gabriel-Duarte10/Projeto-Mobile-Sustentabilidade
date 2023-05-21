@@ -29,6 +29,12 @@ namespace Projeto_Mobile_Sustentabilidade.Helpers
 
             //TransacaoFuncionarioPostoRequest -> TransacaoPosto
             CreateMap<TransacaoFuncionarioPostoRequest, TransacaoPosto>();
+
+            //TransacaoUsinaRequest -> TransacaoUsina
+            CreateMap<TransacaoUsinaRequest, TransacaoUsina>();
+
+            //TransacaoUsinaItensRequest -> TransacaoItensUsina
+            CreateMap<TransacaoUsinaItensRequest, TransacaoItensUsina>();
         }
         
     }

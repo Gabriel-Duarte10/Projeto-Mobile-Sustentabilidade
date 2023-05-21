@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Projeto_Mobile_Sustentabilidade.Data.Context;
 using Projeto_Mobile_Sustentabilidade.Data.Dto;
 using Projeto_Mobile_Sustentabilidade.Data.Interface;
+using Projeto_Mobile_Sustentabilidade.Data.Models;
 using Projeto_Mobile_Sustentabilidade.Data.Request;
 using Projeto_Mobile_Sustentabilidade.Services;
 
@@ -219,6 +220,60 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 
                 throw;
             }
+        }
+
+        public async Task TransacaoUsinaPost(TransacaoUsinaRequest model)
+        {
+            try
+            {
+                var T = await _context.Database.BeginTransactionAsync();
+
+                var transacaoUsina = _mapper.Map<TransacaoUsina>(model);
+
+                var transacaoUsinaBd = await _context.TransacoesUsina.AddAsync(transacaoUsina);
+
+                await _context.SaveChangesAsync();
+
+                foreach (var item in model.TransacaoUsinaItensRequest)
+                {
+                    var transacaoItemUsina = _mapper.Map<TransacaoItensUsina>(item);
+                    transacaoItemUsina.IdTransacaoUsina = transacaoUsinaBd.Entity.Id;
+
+                    await _context.TransacoesItensUsina.AddAsync(transacaoItemUsina);
+                    await _context.SaveChangesAsync();
+
+                    var funcionarioPosto = await _context.FuncionariosPosto
+                        .Include(x => x.Posto)
+                        .FirstOrDefaultAsync(x => x.Id == transacaoUsina.IdFuncionarioPosto);
+                    
+                    if(funcionarioPosto == null)
+                        throw new Exception("Funcionario não encontrado");
+
+                    var postoLiquidoCapacidade = await _context.PostosAceitamLiquido
+                        .Where(x => x.IdPosto == funcionarioPosto.Posto.Id && x.IdLiquido == item.IdLiquido)
+                        .FirstOrDefaultAsync();
+
+                    if(postoLiquidoCapacidade == null)
+                        throw new Exception("Posto não aceita esse liquido");
+
+                    if(postoLiquidoCapacidade.CapacidadeTotal - item.Qtd < 0)
+                        throw new Exception("Enviando mais liquido do que o posto armazena");
+                    
+                    if(postoLiquidoCapacidade.CapacidadeOcupada - item.Qtd < 0)
+                        throw new Exception("Enviando mais liquido do que o posto tem armazenado");
+
+                    postoLiquidoCapacidade.CapacidadeOcupada -= item.Qtd; 
+
+                    await _context.SaveChangesAsync();
+                }
+                await T.CommitAsync();
+            }
+            catch (System.Exception error)
+            {
+                
+                throw;
+            }
+        
         }
     }
 }

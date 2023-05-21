@@ -26,4 +26,15 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
         public int QtdConfirmada { get; set; }
         public int IdLiquido { get; set; }
     }
+    public class TransacaoUsinaRequest
+    {
+        public int IdFuncionarioPosto { get; set; }
+        public int IdUsina { get; set; }
+        public List<TransacaoUsinaItensRequest> TransacaoUsinaItensRequest { get; set; }
+    }
+    public class TransacaoUsinaItensRequest
+    {
+        public int Qtd { get; set; }
+        public int IdLiquido { get; set; }
+    }
 }

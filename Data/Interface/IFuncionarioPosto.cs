@@ -17,5 +17,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Interface
         Task<TransacaoFuncionarioPostoDto> TransacaoFuncionarioPostoGetById(int id);
         Task TransacaoFuncionarioPostoPut(TransacaoFuncionarioPostoRequest model);
         Task TransacaoFuncionarioPostoDelete(int id);
+
+        Task TransacaoUsinaPost(TransacaoUsinaRequest model);
     }
 }

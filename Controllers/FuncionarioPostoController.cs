@@ -56,8 +56,8 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpPut("agendamento")]
-        public async Task<IActionResult> AgendamentoPut(TransacaoFuncionarioPostoRequest model)
+        [HttpPut("agendamento/cliente")]
+        public async Task<IActionResult> AgendamentoClientePut(TransacaoFuncionarioPostoRequest model)
         {
             try
             {
@@ -69,12 +69,12 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpDelete("agendamento/{id}")]
-        public async Task<IActionResult> AgendamentoDelete(int id)
+        [HttpDelete("agendamento/cliente/{idAgendamento}")]
+        public async Task<IActionResult> AgendamentoClienteDelete(int idAgendamento)
         {
             try
             {
-                await _rep.TransacaoFuncionarioPostoDelete(id);
+                await _rep.TransacaoFuncionarioPostoDelete(idAgendamento);
                 return Ok();
             }
             catch (System.Exception error)
@@ -82,12 +82,12 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpGet("agendamento/{id}")]
-        public async Task<IActionResult> AgendamentoGetById(int id)
+        [HttpGet("agendamento/cliente/{idAgendamento}")]
+        public async Task<IActionResult> AgendamentoClienteGetById(int idAgendamento)
         {
             try
             {
-                var transacaoDto = await _rep.TransacaoFuncionarioPostoGetById(id);
+                var transacaoDto = await _rep.TransacaoFuncionarioPostoGetById(idAgendamento);
                 return Ok(transacaoDto);
             }
             catch (System.Exception error)
@@ -95,8 +95,8 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpGet("agendamento")]
-        public async Task<IActionResult> AgendamentoGetAll(int idPosto)
+        [HttpGet("agendamento/cliente/{idPosto}")]
+        public async Task<IActionResult> AgendamentoClienteGetAll(int idPosto)
         {
             try
             {
@@ -108,5 +108,19 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpPost("agendamento/Usina")]
+        public async Task<IActionResult> AgendamentoUsina(TransacaoUsinaRequest model)
+        {
+            try
+            {
+                await _rep.TransacaoUsinaPost(model);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
+
     }
 }

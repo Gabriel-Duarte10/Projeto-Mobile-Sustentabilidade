@@ -23,6 +23,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
         public DbSet<PostoAceitaLiquido> PostosAceitamLiquido { get; set; }
         public DbSet<Usina> Usinas { get; set; }
         public DbSet<TransacaoUsina> TransacoesUsina { get; set; }
+        public DbSet<TransacaoItensUsina> TransacoesItensUsina { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -132,10 +133,16 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
                 .HasForeignKey(x => x.IdFuncionarioPosto)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            modelBuilder.Entity<TransacaoUsina>()
+            modelBuilder.Entity<TransacaoItensUsina>()
                 .HasOne<Liquido>(x => x.Liquido)
                 .WithMany()
                 .HasForeignKey(x => x.IdLiquido)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TransacaoItensUsina>()
+                .HasOne<TransacaoUsina>(x => x.TransacaoUsina)
+                .WithMany()
+                .HasForeignKey(x => x.IdTransacaoUsina)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Usina>()

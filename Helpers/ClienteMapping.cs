@@ -23,6 +23,18 @@ namespace Projeto_Mobile_Sustentabilidade.Helpers
 
             //ClienteRequest -> Cliente
             CreateMap<ClienteRequest, Cliente>();
+
+            //TransacaoPosto -> TransacaoClienteDto
+            CreateMap<TransacaoPosto, TransacaoClienteDto>();
+
+            //TransacaoClienteRequest -> TransacaoPosto
+            CreateMap<TransacaoClienteRequest, TransacaoPosto>();
+
+            //TransacaoItens -> TransacaoItensDto
+            CreateMap<TransacaoItens, TransacaoItemDto>();
+
+            //TransacaoItensRequest -> TransacaoItens
+            CreateMap<TransacaoItensRequest, TransacaoItens>();
         }
     }
 }

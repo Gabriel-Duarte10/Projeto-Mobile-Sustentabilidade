@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projeto_Mobile_Sustentabilidade.Data.Context;
 
@@ -11,9 +12,11 @@ using Projeto_Mobile_Sustentabilidade.Data.Context;
 namespace ProjetoMobileSustentabilidade.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230521044353_dataConfirmadaePosto")]
+    partial class dataConfirmadaePosto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,44 +264,6 @@ namespace ProjetoMobileSustentabilidade.Migrations
                     b.ToTable("PostosAceitamLiquido");
                 });
 
-            modelBuilder.Entity("Projeto_Mobile_Sustentabilidade.Data.Models.TransacaoItens", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeleteAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IdLiquido")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdTransacaoPosto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QtdAgendada")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("QtdConfirmada")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdLiquido");
-
-                    b.HasIndex("IdTransacaoPosto");
-
-                    b.ToTable("TransacaoItens");
-                });
-
             modelBuilder.Entity("Projeto_Mobile_Sustentabilidade.Data.Models.TransacaoPosto", b =>
                 {
                     b.Property<int>("Id")
@@ -307,17 +272,13 @@ namespace ProjetoMobileSustentabilidade.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CodigoTransacao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataAgendada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DataConfirmada")
+                    b.Property<DateTime>("DataConfirmada")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeleteAt")
@@ -329,7 +290,19 @@ namespace ProjetoMobileSustentabilidade.Migrations
                     b.Property<int?>("IdFuncionarioPosto")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdLiquido")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdPosto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QtdAgendada")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("QtdConfirmada")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -347,7 +320,9 @@ namespace ProjetoMobileSustentabilidade.Migrations
 
                     b.HasIndex("IdFuncionarioPosto");
 
-                    b.HasIndex("IdPosto");
+                    b.HasIndex("IdLiquido");
+
+                    b.HasIndex("PostoId");
 
                     b.ToTable("TransacoesPosto");
                 });
@@ -609,25 +584,6 @@ namespace ProjetoMobileSustentabilidade.Migrations
                     b.Navigation("Posto");
                 });
 
-            modelBuilder.Entity("Projeto_Mobile_Sustentabilidade.Data.Models.TransacaoItens", b =>
-                {
-                    b.HasOne("Projeto_Mobile_Sustentabilidade.Data.Models.Liquido", "Liquido")
-                        .WithMany()
-                        .HasForeignKey("IdLiquido")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Projeto_Mobile_Sustentabilidade.Data.Models.TransacaoPosto", "TransacaoPosto")
-                        .WithMany()
-                        .HasForeignKey("IdTransacaoPosto")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Liquido");
-
-                    b.Navigation("TransacaoPosto");
-                });
-
             modelBuilder.Entity("Projeto_Mobile_Sustentabilidade.Data.Models.TransacaoPosto", b =>
                 {
                     b.HasOne("Projeto_Mobile_Sustentabilidade.Data.Models.Cliente", "Cliente")
@@ -641,15 +597,23 @@ namespace ProjetoMobileSustentabilidade.Migrations
                         .HasForeignKey("IdFuncionarioPosto")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.HasOne("Projeto_Mobile_Sustentabilidade.Data.Models.Liquido", "Liquido")
+                        .WithMany()
+                        .HasForeignKey("IdLiquido")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("Projeto_Mobile_Sustentabilidade.Data.Models.Posto", "Posto")
                         .WithMany()
-                        .HasForeignKey("IdPosto")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("PostoId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
 
                     b.Navigation("FuncionarioPosto");
+
+                    b.Navigation("Liquido");
 
                     b.Navigation("Posto");
                 });

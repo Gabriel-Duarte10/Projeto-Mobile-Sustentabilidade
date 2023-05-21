@@ -15,4 +15,17 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
         public int ClienteId { get; set; }
         public StatusEnum Status { get; set; }
     }
+    public class TransacaoClienteRequest
+    {
+        public int? Id { get; set; }
+        public DateTime DataAgendada { get; set; }
+        public int IdCliente { get; set; }
+        public int IdPosto { get; set; }
+        public List<TransacaoItensRequest> TransacaoItens { get; set; }
+    }
+    public class TransacaoItensRequest
+    {
+        public int QtdAgendada { get; set; }
+        public int IdLiquido { get; set; }
+    }
 }

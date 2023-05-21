@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Projeto_Mobile_Sustentabilidade.Data.Context;
 
@@ -11,9 +12,11 @@ using Projeto_Mobile_Sustentabilidade.Data.Context;
 namespace ProjetoMobileSustentabilidade.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230521045836_transacaoPostoItens")]
+    partial class transacaoPostoItens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,17 +310,13 @@ namespace ProjetoMobileSustentabilidade.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CodigoTransacao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DataAgendada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DataConfirmada")
+                    b.Property<DateTime>("DataConfirmada")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DeleteAt")

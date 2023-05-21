@@ -19,6 +19,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
         public DbSet<FuncionarioPosto> FuncionariosPosto { get; set; }
         public DbSet<Liquido> Liquidos { get; set; }
         public DbSet<TransacaoPosto> TransacoesPosto { get; set; }
+        public DbSet<TransacaoItens> TransacaoItens { get; set; }
         public DbSet<PostoAceitaLiquido> PostosAceitamLiquido { get; set; }
         public DbSet<Usina> Usinas { get; set; }
         public DbSet<TransacaoUsina> TransacoesUsina { get; set; }
@@ -95,14 +96,27 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TransacaoPosto>()
-                .HasOne<Liquido>(x => x.Liquido)
-                .WithMany()
-                .HasForeignKey(x => x.IdLiquido)
-                .OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<TransacaoPosto>()
                 .HasOne<Cliente>(x => x.Cliente)
                 .WithMany()
                 .HasForeignKey(x => x.IdCliente)
+                .OnDelete(DeleteBehavior.NoAction);
+            
+            modelBuilder.Entity<TransacaoPosto>()
+                .HasOne<Posto>(x => x.Posto)
+                .WithMany()
+                .HasForeignKey(x => x.IdPosto)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TransacaoItens>()
+                .HasOne<TransacaoPosto>(x => x.TransacaoPosto)
+                .WithMany()
+                .HasForeignKey(x => x.IdTransacaoPosto)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<TransacaoItens>()
+                .HasOne<Liquido>(x => x.Liquido)
+                .WithMany()
+                .HasForeignKey(x => x.IdLiquido)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<TransacaoUsina>()
@@ -110,6 +124,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
                 .WithMany()
                 .HasForeignKey(x => x.IdUsina)
                 .OnDelete(DeleteBehavior.NoAction);
+
 
             modelBuilder.Entity<TransacaoUsina>()
                 .HasOne<FuncionarioPosto>(x => x.FuncionarioPosto)
@@ -128,6 +143,58 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Context
                 .WithMany()
                 .HasForeignKey(x => x.IdAdministrador)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            #region DeleteAt
+
+            modelBuilder.Entity<Usuario>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<Cliente>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<Administrador>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<Posto>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<DonoPosto>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<FuncionarioPosto>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<Liquido>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<TransacaoPosto>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<TransacaoItens>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<PostoAceitaLiquido>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<Usina>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            modelBuilder.Entity<TransacaoUsina>(builder => {
+                builder.HasQueryFilter(p => p.DeleteAt == null);
+            });
+
+            #endregion
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) 
         {

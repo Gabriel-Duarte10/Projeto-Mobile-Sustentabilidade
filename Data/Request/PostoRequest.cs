@@ -10,6 +10,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
     {
         public int? Id { get; set; }
         public int IdDonoPosto { get; set; }
+        public string Nome { get; set; }
         public string CEP { get; set; }
         public string Rua { get; set; }
         public int Numero { get; set; }

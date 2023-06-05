@@ -6980,22 +6980,25 @@
   },
   "packageFolders": {
     "C:\\Users\\Teste\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
+      "projectUniqueName": "C:\\Users\\Teste\\Desktop\\Faculdade\\7-Periodo\\Projeto-Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
       "projectName": "Projeto-Mobile-Sustentabilidade",
-      "projectPath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
+      "projectPath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7-Periodo\\Projeto-Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
       "packagesPath": "C:\\Users\\Teste\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\obj\\",
+      "outputPath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7-Periodo\\Projeto-Mobile\\Projeto-Mobile-Sustentabilidade\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
         "C:\\Users\\Teste\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7003,6 +7006,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

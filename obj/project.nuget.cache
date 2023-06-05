@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kt21tdSLEzuwVuZghudcmGrBvOHNyv1Ar/pBCUEwU5Tn9XWC0u88Jh6JFgMMXOdOxvlqEzt8Dis2m5y92XLssw==",
+  "dgSpecHash": "T9cH0faIG7TvxbFZo26oStE9/7FZD9wDT+BYLzqz8c3Y8CJfoXoMvW5g8KUlWWssMm37AKtI5v8jA3HoQYMbvA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7 Periodo\\Projeto Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
+  "projectFilePath": "C:\\Users\\Teste\\Desktop\\Faculdade\\7-Periodo\\Projeto-Mobile\\Projeto-Mobile-Sustentabilidade\\Projeto-Mobile-Sustentabilidade.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Teste\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Teste\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",

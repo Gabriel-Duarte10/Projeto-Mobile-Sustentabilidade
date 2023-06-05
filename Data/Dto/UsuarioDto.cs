@@ -19,6 +19,8 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Dto
         public string UF { get; set; }
         public string Cidade { get; set; }
         public StatusEnum StatusEnum { get; set; }
+         public virtual DateTime? CreatedAt { get; set; }
+        public virtual DateTime? UpdatedAt { get; set; }
     }
     public class UsuarioPerfil
     {

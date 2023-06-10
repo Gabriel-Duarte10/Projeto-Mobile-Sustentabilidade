@@ -65,9 +65,8 @@ namespace Projeto_Mobile_Sustentabilidade
             services.AddScoped<ICliente, ClienteRep>();
             services.AddScoped<IFuncionarioPosto, FuncionarioPostoRep>();
             services.AddScoped<IManterConta, ManterContaRep>();
+            services.AddScoped<IDashboard, Dashboard>();
             services.AddScoped<IViewRenderService, ViewRenderService>();
-
-
             
             services.AddScoped<SendEmailService>();
             services.AddScoped<SendGridService>();

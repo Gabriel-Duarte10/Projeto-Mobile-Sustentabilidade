@@ -25,6 +25,8 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Dto
     public class TransacaoItemDto
     {
         public int QtdAgendada { get; set; }
+        public double Valor { get; set; }
         public LiquidoDto Liquido { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

@@ -155,9 +155,12 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 
                 foreach (var item in TransacaoItens)
                 {
+                    var liquido = await _context.Liquidos.FirstOrDefaultAsync(x => x.Id == item.IdLiquido);
                     item.QtdConfirmada = model.transacaoFuncionarioPostoItensRequests
                         .First(x => x.IdLiquido == item.IdLiquido)
                         .QtdConfirmada;
+
+                    item.Valor = item.QtdConfirmada.Value * liquido.ValorUnitario;
 
                     await _context.SaveChangesAsync();
 

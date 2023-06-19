@@ -11,7 +11,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Models
         public virtual TransacaoPosto TransacaoPosto { get; set; }
         public int QtdAgendada { get; set; }
         public int? QtdConfirmada { get; set; }
-
+        public double Valor { get; set; }
         public int IdLiquido { get; set; }
         public virtual Liquido Liquido { get; set; }
         

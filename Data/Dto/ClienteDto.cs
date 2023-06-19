@@ -18,6 +18,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Dto
         public PostoDto Posto { get; set; }
         public StatusEnum Status { get; set; }
         public DateTime dataAgendada { get; set; }
+        public double Valor { get; set; }
         public String CodigoTransacao { get; set; }
         public List<TransacaoItemDto> TransacaoItem { get; set; }
     }

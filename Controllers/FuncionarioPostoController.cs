@@ -82,19 +82,7 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
-        [HttpGet("agendamento/cliente/{idAgendamento}")]
-        public async Task<IActionResult> AgendamentoClienteGetById(int idAgendamento)
-        {
-            try
-            {
-                var transacaoDto = await _rep.TransacaoFuncionarioPostoGetById(idAgendamento);
-                return Ok(transacaoDto);
-            }
-            catch (System.Exception error)
-            {
-                return BadRequest(error.Message);
-            }
-        }
+        
         [HttpGet("agendamento/cliente/{idPosto}")]
         public async Task<IActionResult> AgendamentoClienteGetAll(int idPosto)
         {

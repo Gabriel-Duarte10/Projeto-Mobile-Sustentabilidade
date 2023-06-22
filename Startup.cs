@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Hangfire;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Projeto_Mobile_Sustentabilidade.Data.Context;
@@ -83,6 +84,11 @@ namespace Projeto_Mobile_Sustentabilidade
             });
 
             #endregion
+
+            services.AddHttpsRedirection(options =>
+            {
+                options.HttpsPort = 7257;
+            });
             
 
         }
@@ -90,18 +96,21 @@ namespace Projeto_Mobile_Sustentabilidade
         [Obsolete]
         public void Configure(WebApplication app, IWebHostEnvironment env)
         {
-             // Configure the HTTP request pipeline.
-            if (env.IsDevelopment() || env.IsProduction())
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseStaticFiles();
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.Urls.Clear();
+                app.Urls.Add("https://localhost:7257");
+                app.Urls.Add("http://*:5031");
+                app.Urls.Add("https://*:3434");
             }
 
-            app.UseHttpsRedirection();
-            app.UseHangfireServer();
-            app.UseHangfireDashboard();
+            if (app.Environment.IsProduction())
+            {
+                app.UseHttpsRedirection();   
+            }
 
             app.UseCors("CorsPolicy");
             app.UseRouting();
@@ -125,6 +134,9 @@ namespace Projeto_Mobile_Sustentabilidade
             {
                 app.UseSpa(conf => { });
             }
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
+
         }
     }
 }

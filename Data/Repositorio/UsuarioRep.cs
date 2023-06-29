@@ -35,6 +35,13 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 //     Email = model.Email,
                 //     ...
                 // };
+                var usuarios  = await _context.Usuarios.ToListAsync();
+                if(usuarios.Any(x => x.Login == conta.Login))
+                    throw new Exception("Login já cadastrado");
+                if(usuarios.Any(x => x.Email == model.Email))
+                    throw new Exception("Email já cadastrado");
+                if(usuarios.Any(x => x.CPFouCNPJ == model.CPFouCNPJ))
+                    throw new Exception("CPF ou CNPJ já cadastrado");
 
                 var usuario = _mapper.Map<Usuario>(model);
 
@@ -161,6 +168,25 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
             catch (System.Exception error)
             {
                 
+                throw;
+            }
+        }
+
+        public async Task RedefinirSenha(UsuarioRedefinirSenhaRequest model)
+        {
+            var T = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                var usuario = await _context.Usuarios.FindAsync(model.UsuarioId);
+                if(usuario == null)
+                    throw new Exception("Usuario não encontrado");
+                usuario.Senha = BCrypt.Net.BCrypt.HashPassword(model.Senha);
+                await _context.SaveChangesAsync();
+                await T.CommitAsync();
+            }
+            catch (System.Exception)
+            {
+                await T.RollbackAsync();
                 throw;
             }
         }

@@ -31,4 +31,14 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Request
         public string Login { get; set; }
         public string Senha { get; set; }
     }
+    public class UsuarioRedefinirSenhaRequest
+    {
+        public int UsuarioId { get; set; }
+        public string Senha { get; set; }
+    }
+    public class EnvioEmailTokenRequest
+    {
+        public PerfilEnum PerfilEnum { get; set; }
+        public string Token { get; set; }
+    }
 }

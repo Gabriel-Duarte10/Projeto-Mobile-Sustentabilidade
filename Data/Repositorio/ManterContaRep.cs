@@ -32,6 +32,9 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
             if (!BCrypt.Net.BCrypt.Verify(model.Senha, user.Senha))
                 throw new Exception("Senha inválida");
 
+            if(user.PerfilEnum != model.PerfilEnum)
+                throw new Exception("Perfil inválido");
+
             var response = new LoginDto();
 
             switch (model.PerfilEnum)

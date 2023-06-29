@@ -35,7 +35,10 @@ namespace Projeto_Mobile_Sustentabilidade.Services
             if(usuario != null)
             {
                 var token = GenerateToken(usuario.Id.ToString());
-                await SendGridService.Send(email, $"Envio de Email - Redefinir de senha", $"Email/RedefinirSenha", token);
+                EnvioEmailTokenRequest envioEmailTokenRequest = new EnvioEmailTokenRequest();
+                envioEmailTokenRequest.Token = token;
+                envioEmailTokenRequest.PerfilEnum = usuario.PerfilEnum;
+                await SendGridService.Send(email, $"Envio de Email - Redefinir de senha", $"Email/RedefinirSenha", envioEmailTokenRequest);
             }
         }
         public async Task EnvioEmailCancelamentoAgendamento(String email)

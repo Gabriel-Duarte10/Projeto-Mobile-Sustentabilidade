@@ -70,5 +70,18 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpPut("redefinir-senha")]	
+        public async Task<IActionResult> RedefinirSenha(UsuarioRedefinirSenhaRequest model)
+        {
+            try
+            {
+                await _rep.RedefinirSenha(model);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

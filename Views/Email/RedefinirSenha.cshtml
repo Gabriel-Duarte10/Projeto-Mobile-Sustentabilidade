@@ -1,15 +1,33 @@
 @using Microsoft.Extensions.Configuration
+@using Projeto_Mobile_Sustentabilidade.Data.Models.Enuns;
+@using Projeto_Mobile_Sustentabilidade.Data.Request;
 @inject IConfiguration Configuration
-@model string;
+@model EnvioEmailTokenRequest
 @{
     Layout = "_EmailBase";   
     var url = Configuration.GetValue<string>("Url");
-    var link = $"{url}/usuario/gerar-senha/{Model}";
+    switch (Model.PerfilEnum)
+    {
+        case PerfilEnum.Administrador:
+            url = url + "adm";
+            break;
+        case PerfilEnum.Cliente:
+            url = url + "cliente";
+            break;
+        case PerfilEnum.DonoPosto:
+            url = url + "dono-posto";
+            break;
+        case PerfilEnum.FuncionarioPosto:
+            url = url + "funcionario-posto";
+            break;
+    }
+    
+    var link = $"{url}/redefinir-senha?token={Model.Token}";
 }
 
 @section Header {
     <p>
-        <div>Redefinir Sua Senha de Acesso aos Sistemas Taesa</div>
+        <div>Redefinir Sua Senha de Acesso ao LiquiCycle</div>
     </p>
 }
 

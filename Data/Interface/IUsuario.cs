@@ -14,5 +14,6 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Interface
         Task<List<UsuarioDto>> GetAll(PerfilEnum? perfil);
         Task<UsuarioDto> GetById(int id);
         Task Put(UsuarioDadosRequest model);
+        Task RedefinirSenha(UsuarioRedefinirSenhaRequest model);
     }
 }

@@ -97,5 +97,29 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 throw;
             }
         }
+
+        public async Task Delete(int id)
+        {
+            try
+            {
+                var T = await _context.Database.BeginTransactionAsync();
+
+                var liquido = await _context.Liquidos.FindAsync(id);
+                if(liquido == null)
+                    throw new Exception("Liquido não encontrado");
+                    
+                liquido.DeleteAt  = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                await T.CommitAsync();
+            }
+            catch (System.Exception error)
+            {
+                
+                throw;
+            }
+            
+        }
     }
 }

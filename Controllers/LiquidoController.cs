@@ -69,5 +69,18 @@ namespace Projeto_Mobile_Sustentabilidade.Controllers
                 return BadRequest(error.Message);
             }
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                await _rep.Delete(id);
+                return Ok();
+            }
+            catch (System.Exception error)
+            {
+                return BadRequest(error.Message);
+            }
+        }
     }
 }

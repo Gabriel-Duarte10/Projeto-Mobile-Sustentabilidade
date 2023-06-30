@@ -97,5 +97,30 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 throw;
             }
         }
+
+        public async Task Delete(int id)
+        {
+            try
+            {
+                var T = await _context.Database.BeginTransactionAsync();
+
+                var Usina = await _context.Usinas.FindAsync(id);
+
+                if(Usina == null)
+                    throw new Exception("Usina não encontrada");
+                
+                Usina.DeleteAt = DateTime.Now;
+
+                await _context.SaveChangesAsync();
+
+                await T.CommitAsync();
+            }
+            catch (System.Exception error)
+            {
+                
+                throw;
+            }
+            
+        }
     }
 }

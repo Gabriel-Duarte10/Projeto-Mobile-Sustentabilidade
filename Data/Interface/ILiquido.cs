@@ -13,5 +13,6 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Interface
         Task<List<LiquidoDto>> GetAll();
         Task<LiquidoDto> GetById(int id);
         Task Put(LiquidoRequest model);
+        Task Delete(int id);
     }
 }

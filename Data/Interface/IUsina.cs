@@ -13,5 +13,6 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Interface
         Task<List<UsinaDto>> GetAll();
         Task<UsinaDto> GetById(int id);
         Task Put(UsinaRequest model);
+        Task Delete(int id);
     }
 }

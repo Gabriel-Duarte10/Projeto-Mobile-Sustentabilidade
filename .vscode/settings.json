@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin\\Release\\net7.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/6399b7ca-69e5-4176-83d7-65a7136aca4f/resourceGroups/ProjetoMobile/providers/Microsoft.Web/sites/ProjetoMobileApi"
+}

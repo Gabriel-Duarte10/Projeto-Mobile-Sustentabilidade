@@ -21,16 +21,20 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
         }
         public async Task<List<DashboardClienteDto>> GetClienteAdm()
         {
-            var DashboardClienteDto = await _context.TransacoesPosto
-                .Include(x => x.Cliente)
-                    .ThenInclude(x => x.Usuario)
-                .Where(x => x.Status == Models.Enuns.StatusEnum.Aprovado)
-                .GroupBy(x => x.Cliente)
-                .Select(g => new { Cliente = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
-                .Select(x => 
-                    new DashboardClienteDto {Cliente = _mapper.Map<ClienteDto>(x.Cliente), QtdTransacoes = x.Contagem})
-                .ToListAsync();
+            var DashboardClienteDto = await _context.TransacaoItens
+            .Include(x => x.Liquido)
+            .Include(x => x.TransacaoPosto)
+                .ThenInclude(x => x.Cliente)
+                .ThenInclude(x => x.Usuario)
+            .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
+            .GroupBy(x => x.TransacaoPosto.Cliente)
+            .Select(g => new { Cliente = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada) })
+            .OrderByDescending(g => g.QtdDoada)
+            .Select(x => 
+                new DashboardClienteDto {Cliente = _mapper.Map<ClienteDto>(x.Cliente), 
+                    QtdTransacoes = x.Contagem, 
+                    QtdDoada = x.QtdDoada})
+            .ToListAsync();
             
             if(DashboardClienteDto == null)
             {
@@ -58,10 +62,12 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 .Include(x => x.TransacaoPosto)
                 .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
                 .GroupBy(x => x.Liquido)
-                .Select(g => new { Liquido = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
+                .Select(g => new { Liquido = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada)})
+                .OrderByDescending(g => g.QtdDoada)
                 .Select(x => 
-                    new DashboardLiquidoDto {Liquido = _mapper.Map<LiquidoDto>(x.Liquido), QtdTransacoes = x.Contagem})
+                    new DashboardLiquidoDto {Liquido = _mapper.Map<LiquidoDto>(x.Liquido), 
+                        QtdTransacoes = x.Contagem, 
+                        QtdDoada = x.QtdDoada})
                 .ToListAsync();
             
             if(liquido == null)
@@ -74,17 +80,21 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
 
         public async Task<List<DashboardPostoDto>> GetPostoAdm()
         {
-            var Posto = await _context.TransacoesPosto
-                .Include(x => x.Posto)
-                    .ThenInclude(x => x.DonoPosto)
-                    .ThenInclude(x => x.Usuario)
-                .Where(x => x.Status == Models.Enuns.StatusEnum.Aprovado)
-                .GroupBy(x => x.Posto)
-                .Select(g => new { Posto = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
-                .Select(x => 
-                    new DashboardPostoDto {Posto = _mapper.Map<PostoDto>(x.Posto), QtdTransacoes = x.Contagem})
-                .ToListAsync();
+                var Posto = await _context.TransacaoItens
+                    .Include(x => x.Liquido)
+                    .Include(x => x.TransacaoPosto)
+                        .ThenInclude(x => x.Posto)
+                        .ThenInclude(x => x.DonoPosto)
+                        .ThenInclude(x => x.Usuario)
+                    .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
+                    .GroupBy(x => x.TransacaoPosto.Posto)
+                    .Select(g => new { Posto = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada) })
+                    .OrderByDescending(g => g.QtdDoada)
+                    .Select(x => 
+                        new DashboardPostoDto {Posto = _mapper.Map<PostoDto>(x.Posto), 
+                            QtdTransacoes = x.Contagem, 
+                            QtdDoada = x.QtdDoada})
+                    .ToListAsync();
 
             if(Posto == null)
             {
@@ -96,14 +106,19 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
 
         public async Task<List<DashboardUsinaDto>> GetUsinaAdm()
         {
-            var Usina = await _context.TransacoesUsina
-                .Include(x => x.Usina)
-                .GroupBy(x => x.Usina)
-                .Select(g => new { Usina = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
-                .Select(x => 
-                    new DashboardUsinaDto {Usina = _mapper.Map<UsinaDto>(x.Usina), QtdTransacoes = x.Contagem})
-                .ToListAsync();
+            
+            var Usina = await _context.TransacoesItensUsina
+            .Include(x => x.TransacaoUsina)
+                .ThenInclude(x => x.Usina)
+            .Include(x => x.Liquido)
+            .GroupBy(x => x.TransacaoUsina.Usina)
+            .Select(g => new { Usina = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.Qtd) })
+            .OrderByDescending(g => g.QtdDoada)
+            .Select(x => 
+                new DashboardUsinaDto {Usina = _mapper.Map<UsinaDto>(x.Usina), 
+                    QtdTransacoes = x.Contagem, 
+                    QtdDoada = x.QtdDoada})
+            .ToListAsync();
 
             if(Usina == null)
             {
@@ -120,10 +135,12 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
                 .Where(x => x.TransacaoPosto.IdPosto == idPosto)
                 .GroupBy(x => x.Liquido)
-                .Select(g => new { Liquido = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
+                .Select(g => new { Liquido = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada) })
+                .OrderByDescending(g => g.QtdDoada)
                 .Select(x => 
-                    new DashboardLiquidoDto {Liquido = _mapper.Map<LiquidoDto>(x.Liquido), QtdTransacoes = x.Contagem})
+                    new DashboardLiquidoDto {Liquido = _mapper.Map<LiquidoDto>(x.Liquido), 
+                    QtdTransacoes = x.Contagem,
+                    QtdDoada = x.QtdDoada})
                 .ToListAsync();
 
             if(liquido == null)
@@ -135,23 +152,27 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
         }
         public async Task<List<DashboardClienteDto>> GetClientePosto(int idPosto)
         {
-            var clientes = await _context.TransacoesPosto
-                .Include(x => x.Cliente)
+            var DashboardClienteDto = await _context.TransacaoItens
+                .Include(x => x.Liquido)
+                .Include(x => x.TransacaoPosto)
+                    .ThenInclude(x => x.Cliente)
                     .ThenInclude(x => x.Usuario)
-                .Where(x => x.Status == Models.Enuns.StatusEnum.Aprovado)
-                .Where(x => x.IdPosto == idPosto)
-                .GroupBy(x => x.Cliente)
-                .Select(g => new { Cliente = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
+                .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
+                .Where(x => x.TransacaoPosto.IdPosto == idPosto)
+                .GroupBy(x => x.TransacaoPosto.Cliente)
+                .Select(g => new { Cliente = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada) })
+                .OrderByDescending(g => g.QtdDoada)
                 .Select(x => 
-                    new DashboardClienteDto {Cliente = _mapper.Map<ClienteDto>(x.Cliente), QtdTransacoes = x.Contagem})
+                    new DashboardClienteDto {Cliente = _mapper.Map<ClienteDto>(x.Cliente), 
+                        QtdTransacoes = x.Contagem, 
+                        QtdDoada = x.QtdDoada})
                 .ToListAsync();
 
-            if(clientes == null)
+            if(DashboardClienteDto == null)
             {
                 throw new Exception("Nenhum cliente encontrado");
             }
-            foreach (var i in clientes)
+            foreach (var i in DashboardClienteDto)
             {
                 i.Cliente.Usuario = _mapper
                     .Map<UsuarioDto>(await 
@@ -163,21 +184,24 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                         .FirstOrDefaultAsync());
             }
             
-            return clientes;
+            return DashboardClienteDto;
         }
 
         public async Task<List<DashboardFuncionarioPostoDto>> GetFuncionarioPosto(int idPosto)
         {
-            var Funcionario = await _context.TransacoesPosto
-                .Include(x => x.FuncionarioPosto)
+            var Funcionario = await _context.TransacaoItens
+                .Include(x => x.Liquido)
+                .Include(x => x.TransacaoPosto)
+                    .ThenInclude(x => x.FuncionarioPosto)
                     .ThenInclude(x => x.Usuario)
-                .Where(x => x.Status == Models.Enuns.StatusEnum.Aprovado)
-                .Where(x => x.IdPosto == idPosto)
-                .GroupBy(x => x.FuncionarioPosto)
-                .Select(g => new { FuncionarioPosto = g.Key, Contagem = g.Count() })
-                .OrderByDescending(g => g.Contagem)
+                .Where(x => x.TransacaoPosto.Status == Models.Enuns.StatusEnum.Aprovado)
+                .GroupBy(x => x.TransacaoPosto.FuncionarioPosto)
+                .Select(g => new { FuncionarioPosto = g.Key, Contagem = g.Count(), QtdDoada = g.Sum(x => x.QtdConfirmada) })
+                .OrderByDescending(g => g.QtdDoada)
                 .Select(x => 
-                    new DashboardFuncionarioPostoDto {FuncionarioPosto = _mapper.Map<FuncionarioPostoDto>(x.FuncionarioPosto), QtdTransacoes = x.Contagem})
+                    new DashboardFuncionarioPostoDto {FuncionarioPosto = _mapper.Map<FuncionarioPostoDto>(x.FuncionarioPosto), 
+                        QtdTransacoes = x.Contagem, 
+                        QtdDoada = x.QtdDoada})
                 .ToListAsync();
 
             if(Funcionario == null)

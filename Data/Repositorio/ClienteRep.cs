@@ -30,8 +30,11 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 var T = await _context.Database.BeginTransactionAsync();
 
                 var TransacaoPosto = await _context.TransacoesPosto.FirstOrDefaultAsync(x => x.Id == id);
-
-                TransacaoPosto.DeleteAt = DateTime.Now;
+                if (TransacaoPosto == null)
+                {
+                    throw new Exception("Transacao não encontrada");
+                }
+                TransacaoPosto.Status = StatusEnum.Cancelado;
 
                 await _context.SaveChangesAsync();
 
@@ -131,6 +134,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
 
                 var Transacao = _mapper.Map<TransacaoPosto>(model);
                 Transacao.Status = StatusEnum.Pendente;
+                Transacao.CodigoTransacao = TransacaoPostoDb.CodigoTransacao;
   
                 _context.Entry(TransacaoPostoDb).CurrentValues.SetValues(Transacao);
 

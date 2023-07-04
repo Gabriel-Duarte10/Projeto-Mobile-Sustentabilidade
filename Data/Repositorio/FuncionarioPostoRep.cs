@@ -210,7 +210,7 @@ namespace Projeto_Mobile_Sustentabilidade.Data.Repositorio
                 if(TransacaoPosto == null)
                     throw new Exception("Transação não encontrada");
 
-                TransacaoPosto.DeleteAt = DateTime.Now;
+                TransacaoPosto.Status = Models.Enuns.StatusEnum.Cancelado;
 
                 await _context.SaveChangesAsync();
 
